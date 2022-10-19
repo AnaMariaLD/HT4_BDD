@@ -1,51 +1,57 @@
 package org.example.stepdefinitions;
 
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.example.pageobject.pages.HomePage;
-import org.example.pageobject.pages.SearchPage;
+import org.example.pages.HomePage;
+import org.example.pages.SearchPage;
 import org.testng.Assert;
 
+import java.util.List;
+
+import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 import static org.example.stepdefinitions.BaseSteps.PAGES_STORAGE;
-import static org.example.stepdefinitions.BaseSteps.driver;
 
 public class SearchTestSteps {
-    @Given("User is on {string}")
-    public void userIsOn(String pageName) {
-        HomePage homePage = new HomePage(driver);
-        homePage.open();
+
+
+    @Given("User types incorrect search phrase {string} on {string}")
+    public void userTypesIncorrectSearchPhraseOn(String searchInput, String pageName) {
+        HomePage homePage = new HomePage();
+        homePage.typeSearchText(searchInput);
         PAGES_STORAGE.put(pageName, homePage);
-
     }
 
-    @When("User enters search phrase as {string}")
-    public void userEntersSearchPhraseAs(String searchInput) {
-        SearchPage searchPage = (SearchPage) ((HomePage) PAGES_STORAGE.get("Home Page")).search(searchInput);
+    @When("User clicks search button on {string}")
+    public void userClicksSearchButtonOn(String pageName) {
+        SearchPage searchPage = ((HomePage) PAGES_STORAGE.get(pageName)).pressSearchButton();
         PAGES_STORAGE.put("Search Page", searchPage);
-
-
-    }
-
-    @Then("User should see {string} message on {string}")
-    public void userShouldSeeMessageOn(String expectedMessage, String pageName) {
-        String actualMessage = ((SearchPage) PAGES_STORAGE.get(pageName)).getResultsForPhrase();
-        Assert.assertEquals(actualMessage, expectedMessage,
-                "Results search phrase is not the same as input search phrase");
-
     }
 
     @Then("User should see {string} error message on {string}")
     public void userShouldSeeErrorMessageOn(String expectedErrorMessage, String pageName) {
-        String actualErrorMessage = ((SearchPage) PAGES_STORAGE.get(pageName)).getNoResultsMessage();
-        Assert.assertEquals(actualErrorMessage, expectedErrorMessage,
-                "No results message is not as expected");
+        ((SearchPage) PAGES_STORAGE.get(pageName)).checkNoResultsForMessage(expectedErrorMessage);
+    }
+
+    @Given("User types correct search phrase as {string} on {string}")
+    public void userTypesCorrectSearchPhraseAsOn(String searchInput, String pageName) {
+        HomePage homePage = new HomePage();
+        homePage.typeSearchText(searchInput);
+        PAGES_STORAGE.put(pageName, homePage);
+    }
+
+
+    @Then("User should see number of results for {string} message on {string}")
+    public void userShouldSeeNumberOfResultsForLaptopMessageOn(String expectedResultsMessage, String pageName) {
+        ((SearchPage) PAGES_STORAGE.get(pageName)).checkResultsForInputMessage(expectedResultsMessage);
     }
 
 
     @Then("User should see at least one result containing {string} keyword on {string}")
     public void userShouldSeeAtLeastOneResultContainingKeywordOn(String searchInput, String pageName) {
-        Assert.assertTrue(((SearchPage) PAGES_STORAGE.get(pageName)).checkAnyMatchForResults(searchInput),
-                "No results found containing searched text");
+        List<String> resultsList = ((SearchPage) PAGES_STORAGE.get(pageName)).getResultsList();
+        Assert.assertTrue(resultsList.stream().anyMatch(text -> containsIgnoreCase(text, searchInput)),
+                "No result contains searched phrase");
     }
 }
