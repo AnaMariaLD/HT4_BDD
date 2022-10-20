@@ -11,8 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class HomePage extends BasePage {
-
-
     private WebElement searchField;
     @FindBy(css = "[aria-label='Headsets']")
     private WebElement category;

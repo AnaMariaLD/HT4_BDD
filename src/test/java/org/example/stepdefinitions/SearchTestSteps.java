@@ -23,8 +23,6 @@ public class SearchTestSteps {
     public void userEntersSearchPhraseAs(String searchInput) {
         SearchPage searchPage = (SearchPage) ((HomePage) PAGES_STORAGE.get("Home Page")).search(searchInput);
         PAGES_STORAGE.put("Search Page", searchPage);
-
-
     }
 
     @Then("User should see {string} message on {string}")
@@ -32,7 +30,6 @@ public class SearchTestSteps {
         String actualMessage = ((SearchPage) PAGES_STORAGE.get(pageName)).getResultsForPhrase();
         Assert.assertEquals(actualMessage, expectedMessage,
                 "Results search phrase is not the same as input search phrase");
-
     }
 
     @Then("User should see {string} error message on {string}")
@@ -41,7 +38,6 @@ public class SearchTestSteps {
         Assert.assertEquals(actualErrorMessage, expectedErrorMessage,
                 "No results message is not as expected");
     }
-
 
     @Then("User should see at least one result containing {string} keyword on {string}")
     public void userShouldSeeAtLeastOneResultContainingKeywordOn(String searchInput, String pageName) {

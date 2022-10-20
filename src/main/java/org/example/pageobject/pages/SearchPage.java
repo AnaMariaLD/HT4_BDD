@@ -12,11 +12,9 @@ import java.util.List;
 import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 
 public class SearchPage extends BasePage {
-
     private final By byNoResultsMessage = By.xpath("//*[text()='No results for ']");
     private final By byResultsForMessage =By.xpath("//span[text()='\"laptop\"']");
     private final By byResultsList = By.className("a-size-medium");
-
     public SearchPage(WebDriver driver) {
         super(driver);
     }

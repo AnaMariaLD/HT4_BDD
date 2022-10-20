@@ -9,7 +9,6 @@ import java.time.Duration;
 public abstract class BasePage {
     public static final Duration SHORT_WAIT = Duration.ofSeconds(5);
     public static final Duration MEDIUM_WAIT = Duration.ofSeconds(10);
-
     protected WebDriver driver;
 
     public BasePage(WebDriver driver) {

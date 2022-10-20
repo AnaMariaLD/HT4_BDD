@@ -13,10 +13,8 @@ import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 
 
 public class CategoryPage extends BasePage {
-
     private final By brandCheckbox = By.cssSelector(".a-icon.a-icon-checkbox");
     private final By brandName = By.cssSelector(".a-size-base.a-color-base.a-text-bold");
-
     @FindBy(id = "brandsRefinements")
     private WebElement featuredBrands;
     @FindBy(xpath = "//div[contains(@class, 's-title-instructions-style')]")
@@ -32,7 +30,6 @@ public class CategoryPage extends BasePage {
 
     }
 
-
     public String getBrandTitle() {
         return this.featuredBrands.findElement(brandName).getText();
     }
@@ -44,7 +41,6 @@ public class CategoryPage extends BasePage {
                 .map(WebElement::getText)
                 .filter(supportMethods::isNotEmptyString)
                 .allMatch(result -> containsIgnoreCase(result, brandName));
-
     }
 
 }
