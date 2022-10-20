@@ -14,8 +14,6 @@ import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 import static org.example.stepdefinitions.BaseSteps.PAGES_STORAGE;
 
 public class SearchTestSteps {
-
-
     @Given("User types incorrect search phrase {string} on {string}")
     public void userTypesIncorrectSearchPhraseOn(String searchInput, String pageName) {
         HomePage homePage = new HomePage();
@@ -41,12 +39,10 @@ public class SearchTestSteps {
         PAGES_STORAGE.put(pageName, homePage);
     }
 
-
     @Then("User should see number of results for {string} message on {string}")
     public void userShouldSeeNumberOfResultsForLaptopMessageOn(String expectedResultsMessage, String pageName) {
         ((SearchPage) PAGES_STORAGE.get(pageName)).checkResultsForInputMessage(expectedResultsMessage);
     }
-
 
     @Then("User should see at least one result containing {string} keyword on {string}")
     public void userShouldSeeAtLeastOneResultContainingKeywordOn(String searchInput, String pageName) {

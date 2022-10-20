@@ -11,14 +11,10 @@ import static com.codeborne.selenide.Selenide.$$;
 import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 
 public class CategoryPage extends BasePage {
-
     private SelenideElement brandsSection = $("#brandsRefinements");
     private String categoryCheckBoxLocator = ".a-icon.a-icon-checkbox";
-
     private String brandNameLocator = ".a-size-base.a-color-base.a-text-bold";
-
     private String brandName;
-
     private ElementsCollection resultsList = $$(By.xpath("//div[contains(@class, 's-title-instructions-style')]"));
 
     public void selectCategory() {

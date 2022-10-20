@@ -10,7 +10,6 @@ import org.testng.Assert;
 import static org.example.stepdefinitions.BaseSteps.PAGES_STORAGE;
 
 public class FilterAndSearchSteps {
-    private static String brandName;
 
     @Given("User travels to {string}")
     public void userTravelsTo(String pageName) {
@@ -23,7 +22,6 @@ public class FilterAndSearchSteps {
     public void userSelectsABrandOn(String pageName) {
         ((CategoryPage) PAGES_STORAGE.get(pageName)).selectCategory();
     }
-
 
     @Then("A search result list containing only that brand items should load on {string}")
     public void aSearchResultListContainingOnlyThatBrandItemsShouldLoadOn(String pageName) {
